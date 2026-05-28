@@ -4,16 +4,25 @@
   "private": true,
   "main": "dist/index.js",
   "scripts": {
-    "dev": "tsnd --respawn --transpile-only --exit-child src/index.ts",
+    "dev": "tsx watch src/index.ts",
     "build": "tsc -p tsconfig.json",
     "start": "node dist/index.js",
-    "check-types": "tsc --noEmit"
+    "check-types": "tsc --noEmit",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push",
+    "db:migrate": "prisma migrate dev",
+    "db:seed": "prisma db seed",
+    "db:studio": "prisma studio"
   },
   "dependencies": {
+    "@prisma/adapter-pg": "^7.8.0",
+    "@prisma/client": "^7.8.0",
     "@sketchguess/shared-types": "*",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^5.1.0",
+    "ioredis": "^5.11.0",
+    "pg": "^8.21.0",
     "ws": "^8.18.0"
   },
   "devDependencies": {
@@ -21,8 +30,11 @@
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/node": "^22.10.0",
+    "@types/pg": "^8.20.0",
     "@types/ws": "^8.5.13",
+    "prisma": "^7.8.0",
     "ts-node-dev": "^2.0.0",
+    "tsx": "^4.22.3",
     "typescript": "latest"
   }
 }

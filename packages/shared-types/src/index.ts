@@ -1,7 +1,6 @@
 // ============================================================
 // SketchGuess — shared types between web client and server
 // ============================================================
-
 export type PlayerId = string;
 export type RoomCode = string;
 
@@ -72,6 +71,7 @@ export type ServerMessage =
   | { type: 'stroke';        payload: Stroke }
   | { type: 'clear_canvas';  payload: {} }
   | { type: 'chat';          payload: ChatMessage }
-  | { type: 'error';         payload: { code: string; message: string } };
+  | { type: 'error';         payload: { code: string; message: string } }
+  | { type: 'joined';        payload: { you: PlayerId; room: RoomState } };
 
 export type WsMessage = ClientMessage | ServerMessage;

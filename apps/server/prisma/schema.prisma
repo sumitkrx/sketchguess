@@ -1,0 +1,42 @@
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  moduleFormat = "cjs"
+  importFileExtension = "ts"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Word {
+  id         String   @id @default(cuid())
+  text       String   @unique
+  category   String   @default("general")
+  difficulty Int      @default(1) // 1=easy 2=medium 3=hard
+  createdAt  DateTime @default(now())
+
+  @@index([category, difficulty])
+}
+
+model Game {
+  id          String       @id @default(cuid())
+  roomCode    String
+  totalRounds Int
+  startedAt   DateTime     @default(now())
+  endedAt     DateTime?
+  players     GamePlayer[]
+
+  @@index([roomCode])
+}
+
+model GamePlayer {
+  id         String  @id @default(cuid())
+  name       String
+  finalScore Int     @default(0)
+  isWinner   Boolean @default(false)
+  gameId     String
+  game       Game    @relation(fields: [gameId], references: [id], onDelete: Cascade)
+
+  @@index([gameId])
+}
