@@ -12,15 +12,3 @@ Real-time multiplayer drawing & guessing game (skribbl.io-style).
 
 ## Status
 🚧 In active development
-
-## Structure
-\`\`\`
-sketchguess/
-├── apps/
-│   ├── web/         # Next.js frontend
-│   └── server/      # WebSocket + REST API
-└── packages/
-    ├── shared-types/        # WS protocol types
-    ├── typescript-config/   # Shared tsconfig presets
-    └── eslint-config/       # Shared ESLint config
-\`\`\`
