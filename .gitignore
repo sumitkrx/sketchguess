@@ -37,5 +37,8 @@ yarn-error.log*
 .DS_Store
 *.pem
 
+# idea
+.idea
+
 # prisma generated client
 apps/server/src/generated/
