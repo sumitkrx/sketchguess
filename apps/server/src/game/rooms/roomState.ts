@@ -1,4 +1,4 @@
-import { redis } from "../redis/client";
+import { redis } from "@/redis/client";
 import type { RoomState, RoomCode, PlayerId} from '@sketchguess/shared-types';
 
 const TTL = 60 * 60 * 4;
@@ -14,9 +14,12 @@ const k = {
 
 // --- ROOM ---------------
 
-export async function getRoom(code: RoomCode):Promise<RoomCode | null> {
+export async function getRoom(code: RoomCode):Promise<RoomState | null> {
     const raw = await redis.get(k.room(code));
-    return raw ? (JSON.parse(raw) as RoomCode) : null;
+    if(raw){
+        return JSON.parse(raw) as RoomState;
+    }
+    return null;
 }
 
 export async function saveRoom(room: RoomState): Promise<void> {
@@ -82,7 +85,10 @@ export async function setDrawerOrder(code:string, order: PlayerId[]){
 
 export async function getDrawerOrder(code: string): Promise<PlayerId[]> {
     const raw = await redis.get(k.order(code));
-    return raw ? (JSON.parse(raw) as PlayerId[]) : [];
+    if(raw){
+        return JSON.parse(raw) as PlayerId[];
+    }
+    return [];
 }
 
 export async function setDrawerIndex(code: string, idx: number) {
