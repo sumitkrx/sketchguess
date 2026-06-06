@@ -44,27 +44,47 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
 function applyServerMsg(state: GameState, msg: ServerMessage): GameState {
   switch (msg.type) {
     case "joined":
-      return { ...state, myId: msg.payload.you, room: msg.payload.room };
+      return { ...state,
+        myId: msg.payload.you,
+        room: msg.payload.room
+      };
 
     case "room_state":
-      return { ...state, room: msg.payload };
+      return { ...state,
+        room: msg.payload
+      };
 
     case "player_joined":
       if (!state.room) return state;
-      return { ...state, room: { ...state.room, players: [...state.room.players, msg.payload.player] } };
+      return { ...state,
+        room: { ...state.room,
+          players: [...state.room.players, msg.payload.player]
+        }
+      };
 
     case "player_left":
       if (!state.room) return state;
-      return { ...state, room: { ...state.room, players: state.room.players.filter((p) => p.id !== msg.payload.playerId) } };
+      return { ...state,
+        room: { ...state.room,
+          players: state.room.players.filter((p) => p.id !== msg.payload.playerId)
+        }
+      };
 
     case "word_options":
-      return { ...state, wordOptions: msg.payload.words };
+      return { ...state,
+        wordOptions: msg.payload.words
+      };
 
     case "word_to_draw":
-      return { ...state, wordToDraw: msg.payload.word, wordHint: null };
+      return { ...state,
+        wordToDraw: msg.payload.word,
+        wordHint: null
+      };
 
     case "word_hint":
-      return { ...state, wordHint: msg.payload.mask };
+      return { ...state,
+        wordHint: msg.payload.mask
+      };
 
     case "round_started":
       return {
@@ -72,21 +92,41 @@ function applyServerMsg(state: GameState, msg: ServerMessage): GameState {
         strokes: [],
         wordOptions: null,
         room: state.room
-          ? { ...state.room, currentDrawerId: msg.payload.drawerId, roundEndsAt: msg.payload.endsAt, phase: "drawing" }
-          : null,
+          ? { ...state.room,
+              currentDrawerId: msg.payload.drawerId,
+              roundEndsAt: msg.payload.endsAt,
+              phase: "drawing"
+          } : null,
       };
 
     case "round_ended":
-      return { ...state, wordToDraw: null, wordHint: null };
+      return { ...state,
+        wordToDraw: null,
+        wordHint: null
+      };
 
-    case "stroke":
-      return { ...state, strokes: [...state.strokes, msg.payload] };
+    case "game_ended":
+      return { ...state };
+
+    case "stroke": {
+      const idx = state.strokes.findIndex((s) => s.id === msg.payload.id);
+      if(idx >= 0) {
+        const next = [...state.strokes];
+        next[idx] = msg.payload;
+        return {...state, strokes: next};
+      }
+      return { ...state, strokes: [...state.strokes,msg.payload] };
+    }
 
     case "clear_canvas":
-      return { ...state, strokes: [] };
+      return { ...state,
+        strokes: []
+      };
 
     case "chat":
-      return { ...state, messages: [...state.messages.slice(-100), msg.payload] };
+      return { ...state,
+        messages: [...state.messages.slice(-100), msg.payload]
+      };
 
     case "error":
       return { ...state, error: msg.payload.message };
