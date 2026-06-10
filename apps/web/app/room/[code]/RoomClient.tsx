@@ -61,7 +61,7 @@ export default function RoomClient() {
   if (room.phase === "lobby") {
     const isHost = room.hostId === myId;
     return (
-      <main className="min-h-screen bg-slate-900 flex items-center justify-center p-4">
+      <main className="min-h-screen bg-[#fff6ef] flex items-center justify-center p-4">
         <div className="bg-slate-800 rounded-2xl p-8 w-full max-w-sm border border-slate-700 shadow-2xl">
           <div className="text-center mb-6">
             <p className="text-slate-400 text-sm mb-1">Room code</p>
