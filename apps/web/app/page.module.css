@@ -56,6 +56,7 @@
   font-size: 76px;
   line-height: 80px;
   margin:0;
+  font-weight: 800;
 }
 .valueProposition > .heading:after {
   content: ".";
@@ -63,11 +64,13 @@
 
 .valueProposition > .heading:last-of-type{
   margin-bottom: 20px;
+  color: #ff7a66;
 }
 
 .valueProposition > .pre {
   white-space: pre-wrap;
-  font-weight: 500;
+  font-weight: 600;
+  color:#7e7691;
 }
 
 .valueProposition > .doodleContainer {
@@ -83,6 +86,186 @@
   justify-content:center;
   width: 100%;
   position: relative;
+}
+
+.ctAWrap {
+  border-radius: 46px;
+  padding: 38px;
+  background-color: #fff;
+}
+
+.ctAForm > .heading {
+  font-weight: 800;
+  font-size: 30px;
+}
+
+.ctAForm > .subheading {
+  font-weight: 600;
+  font-size: 16px;
+  color: #7e7691;
+  line-height: 1.4;
+}
+
+.ctAForm > .avatarCreatorWrap {
+  width: 100%;
+  height: 76px;
+  margin-bottom: 16px;
+}
+
+.ctAForm > .inputWrap {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.ctAForm > .inputWrap > .label {
+  text-transform: uppercase;
+  color: #7e7691;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 1.4;
+  margin-bottom: 5px;
+}
+
+.ctAForm > .inputWrap > .input {
+  padding: 15px 18px;
+  border-radius: 16px;
+  font-weight: 500;
+  font-size: 20px;
+  outline: none;
+  border: 2px solid #423b530f;
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  color: #171717;
+}
+
+.ctAForm > .inputWrap > .input:focus {
+  border: 2px solid #ff7a66;
+}
+
+.ctAForm > .cta {
+  cursor: pointer;
+  background-color: #ff7a66;
+  color: #fff;
+  border: none;
+  outline: none;
+  width: 100%;
+  border-radius: 999px;
+  height: 62px;
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  box-shadow: rgba(255, 122, 102, 0.4) 0px 5px, rgba(255, 122, 102, 0.3) 0px 10px, rgba(255, 122, 102, 0.2) 0px 15px, rgba(255, 122, 102, 0.1) 0px 20px, rgba(255, 122, 102, 0.05) 0px 25px;
+  margin-bottom: 25px;
+}
+
+.cta:hover, .cta:focus {
+  box-shadow: none;
+}
+
+.cta > .ctaContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.ctaContent > .ctaTitle {
+  font-weight: 700;
+  font-size: 22px;
+}
+
+.ctAForm > .separatorBody {
+  position: relative;
+  width: 100%;
+  height: 2px;
+  background-color: #423b530f;
+  border-radius: 2px;
+  margin: 10px 0;
+}
+
+.ctAForm > .separatorBody > .separatorTitle {
+  position: absolute;
+  left: 50%;
+  top: -25%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 0 5px;
+  color: #aba3b8;
+  line-height: 1.4;
+}
+
+.secondaryActionWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.secondaryActionWrap > .createRoomWrap {
+  border: 2px solid #aba3b8;
+  border-radius: 16px;
+  cursor: pointer;
+  width: 195px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: inherit;
+  transition: all 0.2s;
+}
+
+.createRoomWrap:hover {
+  transform: translateY(-2px);
+}
+
+.createRoomWrap > .createRoomContent {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  gap: 5px;
+  color:  #423b53;
+  font-weight: 700;
+  font-size: 15px;
+  padding: 14px 18px;
+}
+
+.createRoomContent > .createRoomTitle {
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.secondaryActionWrap > .joinRoomInput {
+  border-radius: 16px;
+  padding: 13px 14px;
+  border: 2px solid #aba3b8;
+  width: 91px;
+  font-size: 18px;
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  outline: none;
+}
+
+.secondaryActionWrap > .joinRoomInput:focus {
+  border: 2px solid #ff7a66;
+}
+
+.secondaryActionWrap > .joinRoomButton {
+  font-size: 18px;
+  font-weight: 700;
+  padding: 14px 18px;
+  border-radius: 16px;
+  border: 2px solid #fceee4;
+  outline: none;
+  cursor: pointer;
+  background-color: #ff7a66;
+  color: #fff;
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+.secondaryActionWrap > .joinRoomButton:disabled {
+  opacity: 0.8;
+  cursor: not-allowed;
+  background-color: #fceee4;
+  border: 2px solid #aba3b8;
+  color: #423b53;
 }
 
 @media (max-width: 800px) {

@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import styles from "./page.module.css";
 import { bulb, globe, play, plus } from "./images";
 import Image from "next/image";
-import { Inter } from "next/font/google";
+import { Nunito } from "next/font/google";
 
 const Navbar = () => {
   return (
@@ -32,7 +32,7 @@ interface HeroSectionProps {
   handleSubmit: () => void;
 }
 
-const inter = Inter({
+const nunito = Nunito({
   subsets: ["latin"],
   display: "swap",
 });
@@ -50,7 +50,7 @@ const HeroSection = ({
         <h4 className={styles.heading}>Doodle it</h4>
         <h4 className={styles.heading}>Guess it</h4>
         <h4 className={styles.heading}>Giggle</h4>
-        <p className={`${styles.pre} ${inter.className}`}>
+        <p className={`${styles.pre} ${nunito.className}`}>
           {`Grab your friends, take turns drawing a secret word, 
 and race to guess before the timer runs 
 out.`}
@@ -66,42 +66,60 @@ out.`}
           </div>
         </div>
       </div>
-      <div>
-        <div>
-          <h5>Hop in!</h5>
-          <p>Pick a look and a name to start.</p>
-          <div>
-            <label>nickname</label>
+      <div className={styles.ctAWrap}>
+        <div className={styles.ctAForm}>
+          <h5 className={`${styles.heading} ${nunito.className}`}>Hop in!</h5>
+          <p className={`${styles.subheading} ${nunito.className}`}>
+            Pick a look and a name to start.
+          </p>
+          <AvatarCreator />
+          <div className={styles.inputWrap}>
+            <label className={`${styles.label} ${nunito.className}`}>
+              nickname
+            </label>
             <input
               placeholder="Your Nickname"
               value={name}
+              className={`${styles.input} ${nunito.className}`}
               onChange={(e) => setName(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
               maxLength={20}
             />
           </div>
-          <button onClick={() => handleSubmit()}>
-            <div>
-              <Image src={play} alt={"play-icon"} width={16} height={16} />
-              <h6>Play!</h6>
+          <button onClick={() => handleSubmit()} className={styles.cta}>
+            <div className={styles.ctaContent}>
+              <Image src={play} alt={"play-icon"} width={22} height={22} />
+              <h6 className={styles.ctaTitle}>Play!</h6>
             </div>
           </button>
-          <div>
-            <span>OR</span>
+          <div className={styles.separatorBody}>
+            <span className={styles.separatorTitle}>OR</span>
           </div>
-          <div>
-            <button>
-              <div>
-                <Image src={plus} alt={"add-icon"} width={10} height={10} />
-                <p>Create room</p>
+          <div className={styles.secondaryActionWrap}>
+            <button
+              className={styles.createRoomWrap}
+              onClick={() => handleSubmit()}
+            >
+              <div className={styles.createRoomContent}>
+                <Image src={plus} alt={"add-icon"} width={16} height={16} />
+                <p className={styles.createRoomTitle}>Create room</p>
               </div>
             </button>
             <input
               value={code}
+              placeholder={"CODE"}
+              className={styles.joinRoomInput}
               onChange={(e) => setCode(e.target.value.toUpperCase())}
               onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
               maxLength={6}
             />
+            <button
+              className={styles.joinRoomButton}
+              disabled={code?.length <= 3}
+              onClick={() => handleSubmit()}
+            >
+              Join
+            </button>
           </div>
         </div>
       </div>
@@ -111,6 +129,10 @@ out.`}
 
 const Footer = () => {
   return <footer></footer>;
+};
+
+const AvatarCreator = () => {
+  return <div className={styles.avatarCreatorWrap}></div>;
 };
 
 export default function Home() {
