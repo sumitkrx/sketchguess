@@ -37,6 +37,54 @@
   transform: translateY(-2px);
 }
 
+.heroSection {
+  display: flex;
+  width: 100%;
+  height: calc(100% - 60px);
+  align-items: center;
+  justify-content: space-between;
+}
+
+.valueProposition {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.valueProposition > .heading {
+  font-size: 76px;
+  line-height: 80px;
+  margin:0;
+}
+.valueProposition > .heading:after {
+  content: ".";
+}
+
+.valueProposition > .heading:last-of-type{
+  margin-bottom: 20px;
+}
+
+.valueProposition > .pre {
+  white-space: pre-wrap;
+  font-weight: 500;
+}
+
+.valueProposition > .doodleContainer {
+  width: 388px;
+  border-radius: 25px;
+  border: solid 16px #fff;
+  margin-top: 20px;
+}
+
+.doodleContainer > .doodleWrap {
+  display: flex;
+  align-items: center;
+  justify-content:center;
+  width: 100%;
+  position: relative;
+}
+
 @media (max-width: 800px) {
   .page {
     max-width: 100vw;

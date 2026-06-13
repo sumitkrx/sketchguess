@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import styles from "./page.module.css";
 import { bulb, globe, play, plus } from "./images";
 import Image from "next/image";
+import { Inter } from "next/font/google";
 
 const Navbar = () => {
   return (
@@ -31,6 +32,11 @@ interface HeroSectionProps {
   handleSubmit: () => void;
 }
 
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+});
+
 const HeroSection = ({
   name,
   code,
@@ -39,15 +45,26 @@ const HeroSection = ({
   handleSubmit,
 }: HeroSectionProps) => {
   return (
-    <section>
-      <div>
-        <h4>Doodle it</h4>
-        <h4>Guess it</h4>
-        <h4>Giggle</h4>
-        <pre>
-          Grab your friends, take turns drawing a secret word, and race to guess
-          before the timer runs out.
-        </pre>
+    <section className={styles.heroSection}>
+      <div className={styles.valueProposition}>
+        <h4 className={styles.heading}>Doodle it</h4>
+        <h4 className={styles.heading}>Guess it</h4>
+        <h4 className={styles.heading}>Giggle</h4>
+        <p className={`${styles.pre} ${inter.className}`}>
+          {`Grab your friends, take turns drawing a secret word, 
+and race to guess before the timer runs 
+out.`}
+        </p>
+        <div className={styles.doodleContainer}>
+          <div className={styles.doodleWrap}>
+            <Image
+              src={"/doodle.png"}
+              alt={"doodle-image"}
+              width={168}
+              height={168}
+            />
+          </div>
+        </div>
       </div>
       <div>
         <div>
