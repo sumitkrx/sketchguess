@@ -1,5 +1,7 @@
 "use client";
 import dynamic from "next/dynamic";
+import React from "react";
+import styles from "./roomclient.module.css";
 import { useParams, useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useGame } from "@/hooks/useGame";
@@ -9,6 +11,27 @@ import PlayerList from "@/components/game/PlayerList";
 import GameHeader from "@/components/game/GameHeader";
 import WordPicker from "@/components/game/WordPicker";
 import type { ClientMessage } from "@sketchguess/shared-types";
+import Image from "next/image";
+import { leave, send as SendIcon } from "../../images";
+
+const LobbyNavbar = () => {
+  return (
+    <nav className={styles.navbar}>
+      <div className={styles.navbar_title_wrap}>
+        <h3 className={styles.navbar_title}>SketchGuess</h3>
+      </div>
+      <div>
+        <div></div>
+        <button className={styles.cta}>
+          <div className={styles.navbar_cta_wrap}>
+            <Image src={leave} alt={"leave-icon"} width={16} height={16} />
+            <p className={styles.cta_title}>Leave</p>
+          </div>
+        </button>
+      </div>
+    </nav>
+  );
+};
 
 const DrawingCanvas = dynamic(() => import("@/components/game/DrawingCanvas"), {
   ssr: false,
@@ -35,6 +58,12 @@ export default function RoomClient() {
   const [color, setColor] = useState("#000000");
   const [brushSize, setBrushSize] = useState(6);
   const [clearKey, setClearKey] = useState(0);
+  const [message, setMessage] = useState("");
+
+  function handleMessageInput(e: React.ChangeEvent<HTMLInputElement>) {
+    const value = e.target.value;
+    setMessage(value);
+  }
 
   // reset canvas when a new round starts
   useEffect(() => {
@@ -61,28 +90,46 @@ export default function RoomClient() {
   if (room.phase === "lobby") {
     const isHost = room.hostId === myId;
     return (
-      <main className="min-h-screen bg-[#fff6ef] flex items-center justify-center p-4">
-        <div className="bg-slate-800 rounded-2xl p-8 w-full max-w-sm border border-slate-700 shadow-2xl">
-          <div className="text-center mb-6">
-            <p className="text-slate-400 text-sm mb-1">Room code</p>
-            <div className="text-4xl font-mono font-bold text-indigo-400 tracking-widest">
-              {code}
-            </div>
-            <p className="text-slate-500 text-xs mt-1">Share with friends</p>
-          </div>
-          <ul className="space-y-2 mb-6">
-            {room.players.map((p) => (
-              <li
-                key={p.id}
-                className="flex items-center gap-3 px-4 py-2.5 rounded-lg bg-slate-700"
+      <main className={styles.page}>
+        <LobbyNavbar />
+        <section className={styles.lobby_body}>
+          <div className={styles.left}>
+            <div className={styles.header}></div>
+            <div className={styles.lobby}></div>
+            <div className={styles.footer}>
+              <input
+                className={styles.messageInput}
+                value={message}
+                onChange={handleMessageInput}
+                maxLength={80}
+              />
+              <button
+                className={styles.sendCTA}
+                disabled={message?.trim() === ""}
               >
-                <span className="text-xl">
-                  {p.id === room.hostId ? "👑" : "🎮"}
-                </span>
-                <span className="text-white font-medium flex-1">{p.name}</span>
-                {p.id === myId && (
-                  <span className="text-xs text-indigo-400">you</span>
-                )}
+                <Image
+                  src={SendIcon}
+                  alt={"send-icon"}
+                  width={24}
+                  height={24}
+                />
+              </button>
+            </div>
+          </div>
+          <div className={styles.right}></div>
+        </section>
+        <div>
+          <div>
+            <p>Room code</p>
+            <div>{code}</div>
+            <p>Share with friends</p>
+          </div>
+          <ul>
+            {room.players.map((p) => (
+              <li key={p.id}>
+                <span>{p.id === room.hostId ? "👑" : "🎮"}</span>
+                <span>{p.name}</span>
+                {p.id === myId && <span>you</span>}
               </li>
             ))}
           </ul>
@@ -95,16 +142,15 @@ export default function RoomClient() {
                 } satisfies ClientMessage)
               }
               disabled={room.players.length < 2}
-              className="w-full py-3 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-40 disabled:cursor-not-allowed text-white font-bold rounded-lg transition-colors"
             >
               {room.players.length < 2
                 ? "Waiting for players…"
                 : "Start Game 🚀"}
             </button>
           ) : (
-            <p className="text-center text-slate-400 text-sm">
+            <p>
               Waiting for{" "}
-              <span className="text-white font-medium">
+              <span>
                 {room.players.find((p) => p.id === room.hostId)?.name ?? "host"}
               </span>{" "}
               to start…
