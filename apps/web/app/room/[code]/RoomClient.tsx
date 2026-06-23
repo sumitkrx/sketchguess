@@ -10,9 +10,9 @@ import ChatPanel from "@/components/game/ChatPanel";
 import PlayerList from "@/components/game/PlayerList";
 import GameHeader from "@/components/game/GameHeader";
 import WordPicker from "@/components/game/WordPicker";
-import type { ClientMessage } from "@sketchguess/shared-types";
+import type { ClientMessage, Player } from "@sketchguess/shared-types";
 import Image from "next/image";
-import { leave, send as SendIcon } from "../../images";
+import { leave, send as SendIcon, copy } from "../../images";
 
 const LobbyNavbar = () => {
   return (
@@ -59,6 +59,11 @@ export default function RoomClient() {
   const [brushSize, setBrushSize] = useState(6);
   const [clearKey, setClearKey] = useState(0);
   const [message, setMessage] = useState("");
+  const me = room
+    ? (room.players?.find((p) => p.id === myId) as Player)
+    : ({} as Player);
+  const ready = 4;
+  const waiting = 1;
 
   function handleMessageInput(e: React.ChangeEvent<HTMLInputElement>) {
     const value = e.target.value;
@@ -94,8 +99,46 @@ export default function RoomClient() {
         <LobbyNavbar />
         <section className={styles.lobby_body}>
           <div className={styles.left}>
-            <div className={styles.header}></div>
-            <div className={styles.lobby}></div>
+            <div className={styles.header}>
+              <div>
+                <div>
+                  <p>private room</p>
+                  <h4>{`${me.name}'s Doodle Den`}</h4>
+                </div>
+                <div>
+                  <p>room code</p>
+                  <div>
+                    <h5>{code}</h5>
+                    <button>
+                      <Image
+                        src={copy}
+                        alt={"copy-icon"}
+                        width={16}
+                        height={16}
+                      />
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div>{`${window.location}`}</div>
+                <button>
+                  <Image src={copy} alt={"copy-icon"} width={16} height={16} />
+                  <p>Copy invite</p>
+                </button>
+              </div>
+            </div>
+            <section className={styles.lobby}>
+              <div>
+                <h3>Players</h3>
+                <p>
+                  {`${ready} ready `}
+                  <span>&#xb7;</span>
+                  {` waiting on ${waiting}`}
+                </p>
+              </div>
+              <div></div>
+            </section>
             <div className={styles.footer}>
               <input
                 className={styles.messageInput}
