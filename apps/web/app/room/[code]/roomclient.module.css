@@ -59,7 +59,99 @@
     width: 100%;
     border-radius: 20px;
     background-color: #ffffff;
+    padding: 20px;
 }
+
+.header > .header_top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.header > .header_bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+    gap: 15px;
+}
+
+.header_bottom > .text {
+    color: #7e7691;
+    background-color: #fff6ef;
+    padding: 13px 16px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    flex: 1 1 auto;
+}
+
+.header_bottom > .copy_invite_link {
+    display: flex;
+    gap: 10px;
+    flex-direction: row;
+    align-items: center;
+    padding: 13px 22px;
+    border-radius: 999px;
+    border: none;
+    outline: none;
+    color: #fff;
+    background-color: #ff7a66;
+    cursor: pointer;
+    box-shadow: 0 5px #f2654f;
+    transition: 0.1s ease-in-out;
+}
+
+.header_bottom > .copy_invite_link:hover {
+    margin-top: -4px;
+}
+
+.copy_invite_link > .title {
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.header_top_title {
+    font-size: 38px;
+    line-height: 1.4;
+    font-weight: 800;
+    color: #423b53;
+}
+
+.copy_room_code {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    margin-top: 10px;
+    outline: none;
+    border: none;
+    border-radius: 8px;
+    background-color: #ffe7e0;
+    cursor: pointer;
+}
+
+.copy_room_code > .text {
+    font-size: 22px;
+    line-height: 1.4;
+    font-weight: 800;
+    color: #f2654f;
+    letter-spacing: 2px;
+}
+
+.grey_text {
+    text-transform: uppercase;
+    color: #aba3b8;
+    line-height: 1.4;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.grey_text.small {
+    font-size: 12px;
+}
+
 
 .lobby_body > .left > .lobby {
     flex: 1 1 auto;

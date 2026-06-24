@@ -12,7 +12,19 @@ import GameHeader from "@/components/game/GameHeader";
 import WordPicker from "@/components/game/WordPicker";
 import type { ClientMessage, Player } from "@sketchguess/shared-types";
 import Image from "next/image";
-import { leave, send as SendIcon, copy } from "../../images";
+import {
+  leave,
+  send as SendIcon,
+  copy,
+  play,
+  copy_primary,
+} from "../../images";
+import { Nunito } from "next/font/google";
+
+const nunito = Nunito({
+  subsets: ["latin"],
+  display: "swap",
+});
 
 const LobbyNavbar = () => {
   return (
@@ -100,31 +112,37 @@ export default function RoomClient() {
         <section className={styles.lobby_body}>
           <div className={styles.left}>
             <div className={styles.header}>
-              <div>
+              <div className={styles.header_top}>
                 <div>
-                  <p>private room</p>
-                  <h4>{`${me.name}'s Doodle Den`}</h4>
+                  <p className={`${styles.grey_text} ${nunito.className}`}>
+                    private room
+                  </p>
+                  <h4
+                    className={styles.header_top_title}
+                  >{`${me.name}'s Doodle Den`}</h4>
                 </div>
                 <div>
-                  <p>room code</p>
-                  <div>
-                    <h5>{code}</h5>
-                    <button>
-                      <Image
-                        src={copy}
-                        alt={"copy-icon"}
-                        width={16}
-                        height={16}
-                      />
-                    </button>
-                  </div>
+                  <p
+                    className={`${styles.grey_text} ${styles.small} ${nunito.className}`}
+                  >
+                    room code
+                  </p>
+                  <button className={styles.copy_room_code}>
+                    <h5 className={styles.text}>{code}</h5>
+                    <Image
+                      src={copy_primary}
+                      alt={"copy-icon"}
+                      width={16}
+                      height={16}
+                    />
+                  </button>
                 </div>
               </div>
-              <div>
-                <div>{`${window.location}`}</div>
-                <button>
+              <div className={styles.header_bottom}>
+                <div className={styles.text}>{`${window.location}`}</div>
+                <button className={styles.copy_invite_link}>
                   <Image src={copy} alt={"copy-icon"} width={16} height={16} />
-                  <p>Copy invite</p>
+                  <p className={styles.title}>Copy invite</p>
                 </button>
               </div>
             </div>
@@ -159,7 +177,30 @@ export default function RoomClient() {
               </button>
             </div>
           </div>
-          <div className={styles.right}></div>
+          <div className={styles.right}>
+            <h4>Game settings</h4>
+            <section>
+              <div></div>
+              <div>
+                <button>
+                  {room.hostId === myId ? (
+                    <div>
+                      <Image
+                        src={play}
+                        alt={"start-game"}
+                        width={16}
+                        height={16}
+                      />
+                      <h4>Start game</h4>
+                    </div>
+                  ) : (
+                    <h4>Waiting for host</h4>
+                  )}
+                </button>
+                <p>Only the host can start</p>
+              </div>
+            </section>
+          </div>
         </section>
         <div>
           <div>
